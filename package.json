@@ -3,6 +3,7 @@
   "version": "8.2.3",
   "scripts": {
     "build": "weweb build",
+    "local-serve": "vue-cli-service serve",
     "serve": "weweb serve"
   },
   "dependencies": {
@@ -12,8 +13,10 @@
   },
   "devDependencies": {
     "@babel/core": "7.12.16",
+    "@vue/cli-plugin-babel": "~5.0.0",
     "@babel/eslint-parser": "7.12.16",
     "@vue/cli-plugin-eslint": "5.0.0",
+    "@vue/cli-service": "~5.0.0",
     "eslint": "7.32.0",
     "eslint-plugin-vue": "8.0.3",
     "@weweb/cli": "latest"
