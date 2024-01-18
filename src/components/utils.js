@@ -78,7 +78,7 @@ const getSvgDimension = (data, sizeScale, requiredHeight, containerWidth) => {
 export const addBubbleText = (node, size, width, height) => {
   return node
     .append("text")
-    .text((d) => trimText(d.label, size(d.value) / 9))
+    .text((d) => d.label)
     .attr("x", width / 2)
     .attr("y", height / 2)
     .attr("pointer-events", "none")
@@ -86,12 +86,29 @@ export const addBubbleText = (node, size, width, height) => {
     .style("font-weight", "bold")
     .style("font-family", "Helvetica Neue")
     .style("font-size", (d) => `${getFontSize(d.value, size)}pt`)
-    .style("fill", "black");
+    .style("fill", "black")
+    .each(function (d) {
+      svgTextEllipsis(this, size(d.value) * 2);
+    });
 };
 
-const trimText = (text, threshold) => {
-  if (text.length <= threshold) return text;
-  return text.substr(0, threshold).concat("...");
+const svgTextEllipsis = (textNode, width) => {
+  const d3Node = d3.select(textNode);
+  const targetWidth = width - width * 0.2;
+  const initialText = d3Node.text();
+
+  let textWidth = d3Node.node().getComputedTextLength() ?? 0;
+  let textLength = initialText.length;
+  let text = initialText;
+
+  if (textWidth < targetWidth) return;
+
+  while (textLength > 0 && targetWidth < textWidth) {
+    text = text.slice(0, textLength - 1);
+    d3Node.text(`${text}…`);
+    textWidth = d3Node.node()?.getComputedTextLength() ?? 0;
+    textLength = text.length;
+  }
 };
 
 const getFontSize = (dataValue, size) => {

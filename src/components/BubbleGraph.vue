@@ -200,6 +200,7 @@ export default {
   justify-content: center;
   flex-grow: 1;
 }
+
 .heavy {
   font: bold 30px sans-serif;
 }
