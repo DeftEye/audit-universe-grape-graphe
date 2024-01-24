@@ -66,6 +66,22 @@ export default {
       // Initialize the circle: all located at the center of the SVG area
       let node = svg.append("g").selectAll("circle").data(data).enter();
 
+      const spaceScale =
+        data[data.length - 1].totalPreviousRadius > height
+          ? d3
+              .scaleLinear()
+              .domain([0, data[data.length - 1].totalPreviousRadius])
+              .range([0, height])
+          : d3
+              .scaleLinear()
+              .domain([0, data[data.length - 1].totalPreviousRadius])
+              .range([0, data[data.length - 1].totalPreviousRadius * 0.5]);
+      console.log("max rad", data[data.length - 1].totalPreviousRadius);
+      console.log(
+        "max scale",
+        spaceScale(data[data.length - 1].totalPreviousRadius)
+      );
+
       // Features of the forces applied to the nodes
       let simulation = d3
         .forceSimulation()
@@ -81,7 +97,9 @@ export default {
           d3
             .forceY()
             .strength(0.5)
-            .y((d) => (d.totalPreviousRadius - sizeScale(d.value) / 2) * 0.8)
+            .y((d) =>
+              spaceScale(d.totalPreviousRadius - sizeScale(d.value) / 2)
+            )
         )
         .force("charge", d3.forceManyBody().strength(0.1))
         .force(

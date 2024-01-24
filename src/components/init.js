@@ -123,14 +123,14 @@ const dataSorter = (data, isScoreGraph, sizeScale) => {
     return data
       .sort((a, b) => scoreComparison(a, b))
       .map((d) => {
-        acc += sizeScale(d.value);
+        acc += sizeScale(d.value) * 2;
         return { ...d, totalPreviousRadius: acc };
       });
   }
   return data
     .sort((a, b) => b.value - a.value)
     .map((d) => {
-      acc += sizeScale(d.value);
+      acc += sizeScale(d.value) * 2;
       return { ...d, totalPreviousRadius: acc };
     });
 };

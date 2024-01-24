@@ -1,6 +1,6 @@
 {
   "name": "weweb-custom",
-  "version": "8.2.3",
+  "version": "8.2.4",
   "scripts": {
     "build": "weweb build",
     "local-serve": "vue-cli-service serve",

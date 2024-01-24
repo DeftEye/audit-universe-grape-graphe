@@ -1,6 +1,5 @@
 <template>
   <div class="content">
-    <button class="button" :onClick="render"></button>
     <BubbleGraph :bubbleGraphProps="props2" />
     <BubbleGraph :bubbleGraphProps="props1" />
     <BubbleGraph :bubbleGraphProps="props3" />
@@ -366,30 +365,17 @@ const props = (d) => {
     textColor: "#000000",
   };
 };
-// const props1 = props(data1);
+const props1 = props(data1);
 const props2 = props(data2);
 const props3 = props(data3);
 const props4 = props(data4);
 const props5 = props(data5);
 const props6 = props(data6);
-const props1 = ref(props(data1));
-const render = () => {
-  props1.value = props(data2);
-};
 </script>
 
 <style lang="scss" scoped>
-.my-element {
-  p {
-    font-size: 18px;
-  }
-}
 .content {
-  width: 200px;
-  height: 200px;
-}
-.button {
   width: 100px;
-  height: 50px;
+  height: 800px;
 }
 </style>
